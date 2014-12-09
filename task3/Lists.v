@@ -609,7 +609,7 @@ Proof. reflexivity.  Qed.
 Example test_rev2:            rev nil = nil.
 Proof. reflexivity.  Qed.
 
-(** *** Proofs about reverse *)
+(** *** Proofs about reverse *) 
 (** Now let's prove some more list theorems using our newly
     defined [snoc] and [rev].  For something a little more challenging
     than the inductive proofs we've seen so far, let's prove that
@@ -769,13 +769,32 @@ Proof.
 Theorem app_nil_end : forall l : natlist,
   l ++ [] = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l. induction l as [| h t].
+  Case "l = []".
+  reflexivity.
+  Case "l = h t".
+  simpl. rewrite -> IHt. reflexivity.
+  Qed.
 
+Theorem rev_snoc : forall (n: nat) (l : natlist),
+  rev (snoc l n) = n :: (rev l).
+Proof.
+  intros n l. induction l as [| h t].
+  Case "l = []".
+  reflexivity.
+  Case "l = h t".
+  simpl. rewrite -> IHt. reflexivity.
+  Qed.
 
 Theorem rev_involutive : forall l : natlist,
   rev (rev l) = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l. induction l as [| h t].
+  Case "l = []".
+  reflexivity.
+  Case "l = h t".
+  simpl. rewrite -> rev_snoc. rewrite -> IHt. reflexivity.
+  Qed.
 
 (** There is a short solution to the next exercise.  If you find
     yourself getting tangled up, step back and try to look for a
@@ -784,25 +803,61 @@ Proof.
 Theorem app_assoc4 : forall l1 l2 l3 l4 : natlist,
   l1 ++ (l2 ++ (l3 ++ l4)) = ((l1 ++ l2) ++ l3) ++ l4.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l1 l2 l3 l4.
+  rewrite -> app_assoc.
+  rewrite -> app_assoc.
+  reflexivity.
+  Qed.
 
 Theorem snoc_append : forall (l:natlist) (n:nat),
   snoc l n = l ++ [n].
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l n.
+  induction l as [| h t].
+  Case "l = []".
+  reflexivity.
+  Case "l = h t".
+  simpl.
+  rewrite -> IHt.
+  reflexivity.
+  Qed.
 
 
 Theorem distr_rev : forall l1 l2 : natlist,
   rev (l1 ++ l2) = (rev l2) ++ (rev l1).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l1 l2.
+  induction l1 as [| h t].
+  Case "l1 = []".
+  simpl.
+  rewrite -> app_nil_end.
+  reflexivity.
+  Case "l1 = h t".
+  simpl.
+  rewrite -> IHt.
+  rewrite -> snoc_append.
+  rewrite -> snoc_append.
+  rewrite -> app_assoc.
+  reflexivity.
+  Qed.
 
 (** An exercise about your implementation of [nonzeros]: *)
 
 Lemma nonzeros_app : forall l1 l2 : natlist,
   nonzeros (l1 ++ l2) = (nonzeros l1) ++ (nonzeros l2).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l1 l2.
+  induction l1 as [| h t].
+  Case "l1 = []".
+  simpl.
+  reflexivity.
+  Case "l1 = h t".
+  simpl.
+  rewrite -> IHt.
+    destruct h.
+    reflexivity.
+    reflexivity.
+  Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars (beq_natlist)  *)
