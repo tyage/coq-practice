@@ -214,7 +214,9 @@ Proof.
 Theorem proj2 : forall P Q : Prop, 
   P /\ Q -> Q.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q H.
+  destruct H as [HP HQ].
+  apply HQ. Qed.
 (** [] *)
 
 Theorem and_commut : forall P Q : Prop, 
