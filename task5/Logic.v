@@ -240,7 +240,12 @@ Theorem and_assoc : forall P Q R : Prop,
 Proof.
   intros P Q R H.
   inversion H as [HP [HQ HR]].
-(* FILL IN HERE *) Admitted.
+  split.
+  Case "P /\ Q".
+    split. apply HP. apply HQ.
+  Case "R".
+    apply HR.
+  Qed.
 (** [] *)
 
 
