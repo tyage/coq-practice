@@ -466,7 +466,7 @@ Theorem False_implies_nonsense :
   False -> 2 + 2 = 5.
 Proof. 
   intros contra.
-  inversion contra.  Qed. 
+  destruct contra.  Qed. 
 
 (** How does this work? The [inversion] tactic breaks [contra] into
     each of its possible cases, and yields a subgoal for each case.
