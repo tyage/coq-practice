@@ -207,8 +207,8 @@ Theorem proj1 : forall P Q : Prop,
   P /\ Q -> P.
 Proof.
   intros P Q H.
-  inversion H as [HP HQ]. 
-  apply HP.  Qed.
+  destruct H as [HP HQ].
+  apply HP. Qed.
 
 (** **** Exercise: 1 star, optional (proj2)  *)
 Theorem proj2 : forall P Q : Prop, 
