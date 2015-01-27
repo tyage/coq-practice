@@ -684,7 +684,9 @@ Proof.
 Theorem false_beq_nat : forall n m : nat,
      n <> m ->
      beq_nat n m = false.
-Proof. 
+Proof.
+  intros n m H. destruct n.
+   Case "n = 0". destruct m. simpl.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
