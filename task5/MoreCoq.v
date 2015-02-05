@@ -901,7 +901,20 @@ Theorem bool_fn_applied_thrice :
   forall (f : bool -> bool) (b : bool), 
   f (f (f b)) = f b.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros f b. destruct b.
+    Case "b = true".
+      destruct (f true) eqn:Ha.
+        rewrite -> Ha. apply Ha.
+      destruct (f false) eqn:Hb.
+        rewrite -> Ha. reflexivity.
+        rewrite -> Hb. reflexivity.
+    Case "b = false".
+      destruct (f false) eqn:Hc.
+        destruct (f true) eqn:Hd.
+          rewrite -> Hd. reflexivity.
+          rewrite -> Hc. reflexivity.
+        rewrite -> Hc. rewrite -> Hc. reflexivity.
+  Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars (override_same)  *)
