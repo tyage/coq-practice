@@ -313,7 +313,12 @@ Qed.
 Theorem gorgeous_sum : forall n m,
   gorgeous n -> gorgeous m -> gorgeous (n + m).
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros n m Hn Hm.
+  induction Hn as [ | n' | n'].
+    simpl. apply Hm.
+    apply g_plus3 with (n:=n'+m). apply IHHn.
+    apply g_plus5 with (n:=n'+m). apply IHHn.
+  Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, advanced (beautiful__gorgeous)  *)
