@@ -395,7 +395,15 @@ Proof.
 Theorem or_distributes_over_and_2 : forall P Q R : Prop,
   (P \/ Q) /\ (P \/ R) -> P \/ (Q /\ R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q R H.
+  inversion H as [HPQ HPR].
+  inversion HPQ as [HP | HQ].
+    Case "HP". left. apply HP.
+    Case "HQ".
+      inversion HPR as [HP | HR].
+      SCase "HP". left. apply HP.
+      SCase "HR". right. split. apply HQ. apply HR.
+   Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, optional (or_distributes_over_and)  *)
