@@ -138,7 +138,17 @@ Proof.
 Theorem dist_exists_or : forall (X:Type) (P Q : X -> Prop),
   (exists x, P x \/ Q x) <-> (exists x, P x) \/ (exists x, Q x).
 Proof.
-   (* FILL IN HERE *) Admitted.
+  intros x p q.
+  split.
+    Case "->".
+      intros H. inversion H. inversion H0.
+      SCase "p witness". left. exists witness. apply H1.
+      SCase "q witness". right. exists witness. apply H1.
+    Case "<-".
+      intros H. inversion H.
+      SCase "p witness". inversion H0. exists witness. left. apply H1.
+      SCase "q witness". inversion H0. exists witness. right. apply H1.
+  Qed.
 (** [] *)
 
 (* ###################################################### *)
