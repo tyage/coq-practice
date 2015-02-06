@@ -606,7 +606,11 @@ Proof.
 Theorem not_both_true_and_false : forall P : Prop,
   ~ (P /\ ~P).
 Proof. 
-  (* FILL IN HERE *) Admitted.
+  intros P.
+  unfold not.
+  intros H.
+  destruct H as [HP HPF].
+  apply HPF. apply HP. Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, advanced (informal_not_PNP)  *)
