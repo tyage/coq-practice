@@ -1,3 +1,4 @@
+
 (** * Prop: Propositions and Evidence *)
 
 Require Export Logic.
@@ -193,6 +194,12 @@ Qed.
 (** **** Exercise: 2 stars (b_times2)  *)
 Theorem b_times2: forall n, beautiful n -> beautiful (2*n).
 Proof.
+  intros n B. simpl. apply b_sum with (n:=n) (m:=n+0).
+    apply B.
+    apply b_sum.
+      apply B.
+      apply b_0.
+  Qed.
     (* FILL IN HERE *) Admitted.
 (** [] *)
 
