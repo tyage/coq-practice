@@ -596,7 +596,10 @@ Proof.
 Theorem contrapositive : forall P Q : Prop,
   (P -> Q) -> (~Q -> ~P).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q H.
+  unfold not.
+  intros G HP.
+  apply G. apply H. apply HP. Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (not_both_true_and_false)  *)
