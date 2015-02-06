@@ -930,7 +930,7 @@ Proof.
     rewrite <- Hx1.
     rewrite -> Hk1k2. reflexivity.
   Case "k1 != k2".
-    reflexivity.
+    reflexivity. Qed.
 (** [] *)
 
 (* ################################################################## *)
