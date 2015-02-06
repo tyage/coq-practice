@@ -273,7 +273,7 @@ Theorem iff_sym : forall P Q : Prop,
 Proof.
   (* WORKED IN CLASS *)
   intros P Q H. 
-  inversion H as [HAB HBA].
+  destruct H as [HAB HBA].
   split.
     Case "->". apply HBA.
     Case "<-". apply HAB.  Qed.
@@ -285,12 +285,23 @@ Proof.
 Theorem iff_refl : forall P : Prop, 
   P <-> P.
 Proof. 
-  (* FILL IN HERE *) Admitted.
+  intros P.
+  split.
+    intros HP. apply HP.
+    intros HP. apply HP. Qed.
 
 Theorem iff_trans : forall P Q R : Prop, 
   (P <-> Q) -> (Q <-> R) -> (P <-> R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q R HEPQ HEQR.
+  inversion HEPQ as [HPQ HQP].
+  inversion HEQR as [HQR HRQ].
+  split.
+    Case "P -> R".
+      intros HP. apply HQR. apply HPQ. apply HP.
+    Case "R -> P".
+      intros HR. apply HQP. apply HRQ. apply HR.
+  Qed.
 
 (** Hint: If you have an iff hypothesis in the context, you can use
     [inversion] to break it into two separate implications.  (Think
