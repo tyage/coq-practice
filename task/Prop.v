@@ -393,7 +393,11 @@ Qed.
 Theorem ev_sum : forall n m,
    ev n -> ev m -> ev (n+m).
 Proof. 
-  (* FILL IN HERE *) Admitted.
+  intros n m Hn Hm.
+  induction Hn.
+    Case "n = 0". simpl. apply Hm.
+    Case "n = S n". simpl. apply ev_SS with (n:=n+m). apply IHHn.
+  Qed.
 (** [] *)
 
 
