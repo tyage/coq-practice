@@ -711,9 +711,19 @@ Theorem false_beq_nat : forall n m : nat,
      n <> m ->
      beq_nat n m = false.
 Proof.
-  intros n m H. destruct n.
-   Case "n = 0". destruct m. simpl.
-  (* FILL IN HERE *) Admitted.
+  intros n.
+  induction n as [| n'].
+  intros m H.
+  unfold not in H.
+  Case "n = 0". destruct m as [| m'].
+    SCase "m = 0". simpl. apply ex_falso_quodlibet. apply H. reflexivity.
+    SCase "m = S m'". simpl. reflexivity.
+  Case "n = S n'".
+    intros m H.
+    destruct m as [| m'].
+    SCase "m = 0". simpl. reflexivity.
+    SCase "m = S m'". simpl. apply IHn'. unfold not. intros H'. unfold not in H. apply H.
+      rewrite H'. reflexivity. Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, optional (beq_nat_false)  *)
